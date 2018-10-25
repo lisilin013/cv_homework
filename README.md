@@ -6,5 +6,5 @@ This is cv homeworks backup in 2018 fall semester.
 * LM algorithm
 * Find Homography
 * Calibrate Camera using Linear camera calibration
-- Photometrix stereo
-- Mean, Median, Gaussian Filter
+* Photometrix stereo
+* Mean, Median, Gaussian Filter
