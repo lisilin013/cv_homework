@@ -8,3 +8,4 @@ This is cv homeworks backup in 2018 fall semester.
 * Calibrate Camera using Linear camera calibration
 * Photometrix stereo
 * Mean, Median, Gaussian Filter
+* Skin detect
