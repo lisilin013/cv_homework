@@ -13,6 +13,7 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include "skin_detect.h"
+
 using namespace std;
 using namespace cv;
 

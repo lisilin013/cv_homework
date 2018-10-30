@@ -1,4 +1,6 @@
 #include "skin_detect.h"
+#include "guidedfilter.h"
+
 using namespace std;
 using namespace cv;
 
@@ -65,11 +67,20 @@ void SkinDetector::detectSkinHSV(const Mat& srcImage, Mat &dstImage)
 	int MorphExVal2 = 3;
 	int Morphtimes = 5;
 	
-	//1. Filt image with Bilateral
+	//1. Filt image with guidedFilter
 	Mat morph_struct = getStructuringElement(MORPH_RECT, Size(MorphExVal * 2 + 1, MorphExVal * 2 + 1));
 	Mat filter_result, morph_result, transform_3, hsv_result, temp;
-	bilateralFilter(srcImage, filter_result, BilateralFilterVal, BilateralFilterVal * 2, BilateralFilterVal / 2);
-	
+	// bilateralFilter(srcImage, filter_result, BilateralFilterVal, BilateralFilterVal * 2, BilateralFilterVal / 2);
+
+	//guided filter perform more better!
+	int r = 6; // try r=2, 4, or 8
+	double eps = 0.01; // try eps=0.1^2, 0.2^2, 0.4^2
+	eps *= 255 * 255;   // Because the intensity range of our images is [0, 255]
+	cv::Mat p = srcImage.clone();
+	filter_result = guidedFilter(srcImage, p, r, eps);
+
+
+
 	//2. Do MORPH_OPEN and MORPH_CLOSE operate to filtered image
 	morphologyEx(filter_result, temp, MORPH_OPEN, morph_struct);
 	morphologyEx(temp, morph_result, MORPH_CLOSE, morph_struct);
